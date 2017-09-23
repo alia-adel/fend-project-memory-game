@@ -4,6 +4,8 @@
 
 * [Game Rules](#game_rules)
 * [Technical](#technical)
+* [Credits][#credits]
+* [Tools Used][#tools_used]
 
 ## Game Rules
 
@@ -28,3 +30,11 @@
 	* **main.css** This is where the game board styling is located.
 	* **app.js** This is where all the board actions reside.
 * To follow the game workflow, please check `app.js`.
+
+## Credits
+
+* For shuffling the cards **shuffle** javaScript function was used from http://stackoverflow.com/a/2450976
+
+## Tools Used
+
+* [Fontawesome](http://fontawesome.io/icons/) was used to display game card's icons.
