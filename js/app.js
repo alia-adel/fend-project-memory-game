@@ -28,6 +28,12 @@ let moveCounter = 0;
 // Tracking time by logging the gamer start time
 let startDate = new Date();
 
+// setInterval timer id
+let timerID;
+
+// Variable where the final game time will be set. intialized with start time
+let gameFinalTime = startDate;
+
 // Create game cards objects' array
 let cards = [];
 
@@ -162,15 +168,12 @@ function shuffle(array) {
  *       update the move count above the game deck
  *       & dims the game deck's stars accoording to the following conditions:
  *         - Dim one star if clicks are greater than 16 moves.
- *         - Dim two star if clicks are greater than 32 moves.
- *         - Dim three star if clicks are greater than 48 moves.
+ *         - Dim two stars if clicks are greater than 32 moves.
  *
  */
 function calcualteMoveScore() {
-	if(gameStars != null && gameStars.length == 3) {
-		if(moveCounter > (cards.length * 3)) {
-			updateElementClasses(gameStars[2], cssClasses.dim, true);
-		} else if(moveCounter > (cards.length * 2)) {
+	if(gameStars != null && gameStars.length === 3) {
+		if(moveCounter > (cards.length * 2)) {
 			updateElementClasses(gameStars[1], cssClasses.dim, true);
 		} else if(moveCounter > cards.length) {
 			updateElementClasses(gameStars[0], cssClasses.dim, true);
@@ -266,10 +269,13 @@ function checkGameCompletetion() {
 		}
 	}
 
+	//Stop timer
+	clearInterval(timerID);
+
 	// Update the success message by replacing placeholders for moves, time & stars
 	let succesMsg = document.getElementsByClassName('success-sub-msg')[0];
 	succesMsg.innerHTML = succesMsg.innerHTML.replace('#{move}', moveCounter).replace(
-		'#{time}', calculateGameTime());
+		'#{time}', gameFinalTime);
 
 
 	let dimmedStars = document.getElementsByClassName('dim').length;
@@ -299,20 +305,26 @@ function checkGameCompletetion() {
 
 /**
  * @description Calculates the time in seconds between the game start & the game completion
- * @returns {number} time in seconds
+ *              & updates the timer above the game board
  */
-function calculateGameTime() {
-	return (new Date() - startDate)/1000;
+function startTimer() {
+	gameFinalTime = Math.round((new Date() - startDate)/1000);
+	document.getElementById('game-time').innerHTML =`${gameFinalTime} seconds` ;
 }
-
 
 ///	End of Functions' Section ///
 
 
 
-/* Start the game board */
+/* - Start the game board
+ * - Start the game timer
+ */
 document.addEventListener('DOMContentLoaded',function(){
 	startGameBoard();
+	timerID = setInterval(startTimer, 1000);
 });
+
+
+
 
 

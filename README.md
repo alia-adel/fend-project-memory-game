@@ -15,7 +15,7 @@
 	* In case both cards don't match then both cards will be flipped on their back again.
 		![Wrong match](./img/wrong_move.png)
 * Every card you flip will be considered as a move & will be incremented in the counter you see above the game board.
-	* After 17 moves you will loose one star, after 33, you'll loose two stars & after 49 moves all stars will be dimmed.
+	* After 17 moves you will loose one star, after 33, you'll loose two stars.
 * After you successfully manage to match all pairs, a success window will open showing how many moves you've done & how long have you spent.
 
 	![Completed Game](./img/complete.png)
