@@ -111,31 +111,43 @@ function startGameBoard() {
 			cards.push(card);
 
 			// Add onclick event listener
-			card.htmlElement.addEventListener('click', function() {
-				/*
-				 * If the card is already flipped then don't count a new move
-				 * else increment the move counter & update the move value above the game deck
-				 */
-				if(!this.className.includes(cssClasses.show)){
-					moveCounter++;
-					document.getElementById('game-moves').innerHTML
-						= moveCounter + ((moveCounter <= 1)?' Move':' Moves');
-					calcualteMoveScore();
-				}
-
-				// Update card flipping status & check if it matches the already flipped one
-				if(!cards[i].correct) {
-					if(!cards[i].flipped) {
-						cards[i].showCard();
-					}
-					// This hack was added to force execution order
-					setTimeout(checkMatchingCards, 300, cards[i]);
+			card.htmlElement.addEventListener('click', function(event) {
+				if(!cards[i].clicked) {
+					cards[i].clicked = true;
+					cardClickEvent(cards[i]);
 				}
 			});
 		}
 
 	} else {
 		console.log(`Error: Game html cards element or/& Icons' array is empty`);
+	}
+}
+
+
+/**
+ * @description game card click event function
+ * @param {object} card - The card where we will bind the event to
+ */
+function cardClickEvent(card){
+	/*
+	 * If the card is already flipped then don't count a new move
+	 * else increment the move counter & update the move value above the game deck
+	 */
+	if(!card.htmlElement.className.includes(cssClasses.show)){
+		moveCounter++;
+		document.getElementById('game-moves').innerHTML
+			= moveCounter + ((moveCounter <= 1)?' Move':' Moves');
+		calcualteMoveScore();
+	}
+
+	// Update card flipping status & check if it matches the already flipped one
+	if(!card.correct) {
+		if(!card.flipped) {
+			card.showCard();
+		}
+		// This hack was added to force execution order
+		setTimeout(checkMatchingCards, 300, card);
 	}
 }
 
@@ -217,9 +229,9 @@ function checkMatchingCards(card) {
 	 * 5- Check if with this move the game has completed or not by calling function 'checkGameCompletetion'
 	 * 6- In case the cards don't match then alert the user by shaking the cards & hide them both
 	 */
-	if(lastFlippedCard != null) {
-		if(lastFlippedCard.flipped && !lastFlippedCard.correct
-			&& card.index != lastFlippedCard.index && card.flipped && (card.icon === lastFlippedCard.icon)) {
+	if(lastFlippedCard != null && card.index != lastFlippedCard.index) {
+		if(lastFlippedCard.flipped && card.flipped && !lastFlippedCard.correct
+			 && (card.icon === lastFlippedCard.icon)) {
 			card.markCardCorrect();
 			lastFlippedCard.markCardCorrect();
 			lastFlippedCard = null;
@@ -237,6 +249,8 @@ function checkMatchingCards(card) {
 		lastFlippedCard = card;
 	}
 
+	// Add delay time to prevent multiple continuous clicks on the same card
+	setTimeout(function() {card.clicked = false;}, 1000);
 }
 
 
