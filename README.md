@@ -2,10 +2,10 @@
 
 ## Table of Contents
 
-* [Game Rules](#game_rules)
+* [Game Rules](#game-rules)
 * [Technical](#technical)
 * [Credits](#credits)
-* [Tools Used](#tools_used)
+* [Tools Used](#tools-used)
 
 ## Game Rules
 
