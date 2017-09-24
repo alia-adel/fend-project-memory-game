@@ -287,19 +287,11 @@ function checkGameCompletetion() {
 	clearInterval(timerID);
 
 	// Update the success message by replacing placeholders for moves, time & stars
+	let dimmedStars = document.getElementsByClassName('dim').length;
 	let succesMsg = document.getElementsByClassName('success-sub-msg')[0];
 	succesMsg.innerHTML = succesMsg.innerHTML.replace('#{move}', moveCounter).replace(
-		'#{time}', gameFinalTime);
-
-
-	let dimmedStars = document.getElementsByClassName('dim').length;
-	if(dimmedStars > 0) {
-		succesMsg.innerHTML
-			= succesMsg.innerHTML.replace(
-				'#{stars}', `& with ${3-dimmedStars} ${((3-dimmedStars) > 1)?'stars' : 'star' }`);
-	} else {
-		succesMsg.innerHTML = succesMsg.innerHTML.replace('#{stars}','');
-	}
+		'#{time}', gameFinalTime).replace(
+		'#{stars}', `& with ${3-dimmedStars} ${((3-dimmedStars) > 1)?'stars' : 'star' }`);
 
 	// Maximize the success modal windows
 	updateElementClasses(document.getElementById('game-modal'), cssClasses.fullScreen, true);
