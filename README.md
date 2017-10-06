@@ -27,6 +27,7 @@
 
 * This project includes the following assets:
 	* **index.html** This is where the game html structure is located.
+		* You can access the memory game from: [https://alia-adel.github.io/fend-project-memory-game/](https://alia-adel.github.io/fend-project-memory-game/)
 	* **main.css** This is where the game board styling is located.
 	* **app.js** This is where all the board actions reside.
 * To follow the game workflow, please check `app.js`.
